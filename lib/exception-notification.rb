@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'exception_notifier'
-require 'exception_notification/rack'
-require 'exception_notification/version'
+require "exception_notifier"
+require "exception_notification/rack"
+require "exception_notification/version"
 
 module ExceptionNotification
   # Alternative way to setup ExceptionNotification.

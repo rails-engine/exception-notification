@@ -17,15 +17,15 @@ There's a great [Railscast about Exception Notification](http://railscasts.com/e
 
 ## Requirements
 
-* Ruby 2.3 or greater
-* Rails 4.0 or greater, Sinatra or another Rack-based application.
+- Ruby 2.3 or greater
+- Rails 4.0 or greater, Sinatra or another Rack-based application.
 
 ## Getting Started
 
 Add the following line to your application's Gemfile:
 
 ```ruby
-gem 'exception_notification'
+gem 'exception-notification'
 ```
 
 ### Rails
@@ -84,17 +84,17 @@ Options -> sections" below.
 
 ExceptionNotification relies on notifiers to deliver notifications when errors occur in your applications. By default, 8 notifiers are available:
 
-* [Campfire notifier](docs/notifiers/campfire.md)
-* [Datadog notifier](docs/notifiers/datadog.md)
-* [Email notifier](docs/notifiers/email.md)
-* [HipChat notifier](docs/notifiers/hipchat.md)
-* [IRC notifier](docs/notifiers/irc.md)
-* [Slack notifier](docs/notifiers/slack.md)
-* [Mattermost notifier](docs/notifiers/mattermost.md)
-* [Teams notifier](docs/notifiers/teams.md)
-* [Amazon SNS](docs/notifiers/sns.md)
-* [Google Chat notifier](docs/notifiers/google_chat.md)
-* [WebHook notifier](docs/notifiers/webhook.md)
+- [Campfire notifier](docs/notifiers/campfire.md)
+- [Datadog notifier](docs/notifiers/datadog.md)
+- [Email notifier](docs/notifiers/email.md)
+- [HipChat notifier](docs/notifiers/hipchat.md)
+- [IRC notifier](docs/notifiers/irc.md)
+- [Slack notifier](docs/notifiers/slack.md)
+- [Mattermost notifier](docs/notifiers/mattermost.md)
+- [Teams notifier](docs/notifiers/teams.md)
+- [Amazon SNS](docs/notifiers/sns.md)
+- [Google Chat notifier](docs/notifiers/google_chat.md)
+- [WebHook notifier](docs/notifiers/webhook.md)
 
 But, you also can easily implement your own [custom notifier](docs/notifiers/custom.md).
 
@@ -102,7 +102,7 @@ But, you also can easily implement your own [custom notifier](docs/notifiers/cus
 
 In general, ExceptionNotification will send a notification when every error occurs, which may result in a problem: if your site has a high throughput and a particular error is raised frequently, you will receive too many notifications. During a short period of time, your mail box may be filled with thousands of exception mails, or your mail server may even become slow. To prevent this, you can choose to group errors by setting the `:error_grouping` option to `true`.
 
-Error grouping uses a default formula of `log2(errors_count)` to determine whether to send the notification, based on the accumulated error count for each specific exception. This makes the notifier only send a notification when the count is: 1, 2, 4, 8, 16, 32, 64, 128, ..., (2**n). You can use `:notification_trigger` to override this default formula.
+Error grouping uses a default formula of `log2(errors_count)` to determine whether to send the notification, based on the accumulated error count for each specific exception. This makes the notifier only send a notification when the count is: 1, 2, 4, 8, 16, 32, 64, 128, ..., (2\*\*n). You can use `:notification_trigger` to override this default formula.
 
 The following code shows the available options to configure error grouping:
 
@@ -130,18 +130,17 @@ Rails.application.config.middleware.use ExceptionNotification::Rack,
 
 You can choose to ignore certain exceptions, which will make ExceptionNotification avoid sending notifications for those specified. There are three ways of specifying which exceptions to ignore:
 
-* `:ignore_exceptions` - By exception class (i.e. ignore RecordNotFound ones)
+- `:ignore_exceptions` - By exception class (i.e. ignore RecordNotFound ones)
 
-* `:ignore_crawlers`   - From crawler (i.e. ignore ones originated by Googlebot)
+- `:ignore_crawlers` - From crawler (i.e. ignore ones originated by Googlebot)
 
-* `:ignore_if`         - Custom (i.e. ignore exceptions that satisfy some condition)
+- `:ignore_if` - Custom (i.e. ignore exceptions that satisfy some condition)
 
-* `:ignore_notifer_if` - Custom (i.e. let each notifier ignore exceptions if by-notifier condition is satisfied)
-
+- `:ignore_notifer_if` - Custom (i.e. let each notifier ignore exceptions if by-notifier condition is satisfied)
 
 ### :ignore_exceptions
 
-*Array of strings, default: %w{ActiveRecord::RecordNotFound Mongoid::Errors::DocumentNotFound AbstractController::ActionNotFound ActionController::RoutingError ActionController::UnknownFormat}*
+_Array of strings, default: %w{ActiveRecord::RecordNotFound Mongoid::Errors::DocumentNotFound AbstractController::ActionNotFound ActionController::RoutingError ActionController::UnknownFormat}_
 
 Ignore specified exception types. To achieve that, you should use the `:ignore_exceptions` option, like this:
 
@@ -155,11 +154,11 @@ Rails.application.config.middleware.use ExceptionNotification::Rack,
                                         }
 ```
 
-The above will make ExceptionNotifier ignore a *TemplateError* exception, plus the ones ignored by default.
+The above will make ExceptionNotifier ignore a _TemplateError_ exception, plus the ones ignored by default.
 
 ### :ignore_crawlers
 
-*Array of strings, default: []*
+_Array of strings, default: []_
 
 In some cases you may want to avoid getting notifications from exceptions made by crawlers. To prevent sending those unwanted notifications, use the `:ignore_crawlers` option like this:
 
@@ -175,7 +174,7 @@ Rails.application.config.middleware.use ExceptionNotification::Rack,
 
 ### :ignore_if
 
-*Lambda, default: nil*
+_Lambda, default: nil_
 
 You can ignore exceptions based on a condition. Take a look:
 
@@ -193,7 +192,7 @@ You can make use of both the environment and the exception inside the lambda to 
 
 ### :ignore_notifier_if
 
-* Hash of Lambda, default: nil*
+- Hash of Lambda, default: nil\*
 
 In case you want a notifier to ignore certain exceptions, but don't want other notifiers to skip them, you can set by-notifier ignore options.
 By setting below, each notifier will ignore exceptions when its corresponding condition is met.
@@ -225,7 +224,7 @@ Rails' routing middleware uses this strategy, rather than raising an exception, 
 
 ### :ignore_cascade_pass
 
-*Boolean, default: true*
+_Boolean, default: true_
 
 Set to false to trigger notifications when another rack middleware sets the "X-Cascade" header to "pass."
 
@@ -270,7 +269,6 @@ def server_error(exception)
   )
 end
 ```
-
 
 ## Extras
 
