@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 
-require 'active_support/core_ext/time'
-require 'action_mailer'
-require 'action_dispatch'
-require 'pp'
+require "active_support/core_ext/time"
+require "action_mailer"
+require "action_dispatch"
+require "pp"
 
 module ExceptionNotifier
   class EmailNotifier < BaseNotifier
     DEFAULT_OPTIONS = {
       sender_address: %("Exception Notifier" <exception.notifier@example.com>),
       exception_recipients: [],
-      email_prefix: '[ERROR] ',
+      email_prefix: "[ERROR] ",
       email_format: :text,
       sections: %w[request session environment backtrace],
       background_sections: %w[backtrace data],
@@ -20,14 +20,15 @@ module ExceptionNotifier
       delivery_method: nil,
       mailer_settings: nil,
       email_headers: {},
-      mailer_parent: 'ActionMailer::Base',
-      template_path: 'exception_notifier',
+      mailer_parent: "ActionMailer::Base",
+      template_path: "exception_notifier",
       deliver_with: nil
     }.freeze
 
     module Mailer
       class MissingController
-        def method_missing(*args, &block); end
+        def method_missing(*args, &block)
+        end
       end
 
       def self.extended(base)
@@ -40,18 +41,18 @@ module ExceptionNotifier
           def exception_notification(env, exception, options = {}, default_options = {})
             load_custom_views
 
-            @env        = env
-            @exception  = exception
+            @env = env
+            @exception = exception
 
-            env_options = env['exception_notifier.options'] || {}
-            @options    = default_options.merge(env_options).merge(options)
+            env_options = env["exception_notifier.options"] || {}
+            @options = default_options.merge(env_options).merge(options)
 
-            @kontroller = env['action_controller.instance'] || MissingController.new
-            @request    = ActionDispatch::Request.new(env)
-            @backtrace  = exception.backtrace ? clean_backtrace(exception) : []
-            @timestamp  = Time.current
-            @sections   = @options[:sections]
-            @data       = (env['exception_notifier.exception_data'] || {}).merge(options[:data] || {})
+            @kontroller = env["action_controller.instance"] || MissingController.new
+            @request = ActionDispatch::Request.new(env)
+            @backtrace = exception.backtrace ? clean_backtrace(exception) : []
+            @timestamp = Time.current
+            @sections = @options[:sections]
+            @data = (env["exception_notifier.exception_data"] || {}).merge(options[:data] || {})
             @sections += %w[data] unless @data.empty?
 
             compose_email
@@ -61,11 +62,11 @@ module ExceptionNotifier
             load_custom_views
 
             @exception = exception
-            @options   = default_options.merge(options).symbolize_keys
+            @options = default_options.merge(options).symbolize_keys
             @backtrace = exception.backtrace || []
             @timestamp = Time.current
-            @sections  = @options[:background_sections]
-            @data      = options[:data] || {}
+            @sections = @options[:background_sections]
+            @data = options[:data] || {}
             @env = @kontroller = nil
 
             compose_email
@@ -80,7 +81,7 @@ module ExceptionNotifier
             subject << " (#{@exception.class})"
             subject << " #{@exception.message.inspect}" if @options[:verbose_subject]
             subject = EmailNotifier.normalize_digits(subject) if @options[:normalize_subject]
-            subject.length > 120 ? subject[0...120] + '...' : subject
+            subject.length > 120 ? subject[0...120] + "..." : subject
           end
 
           def include_controller?
@@ -103,6 +104,9 @@ module ExceptionNotifier
             case object
             when Hash, Array
               truncate(object.inspect, 300)
+            when ActionDispatch::Request::Session
+              # Rails 7.0 session
+              truncate(object.to_hash.inspect, 300)
             else
               object.to_s
             end
@@ -111,7 +115,7 @@ module ExceptionNotifier
           helper_method :safe_encode
 
           def safe_encode(value)
-            value.encode('utf-8', invalid: :replace, undef: :replace, replace: '_')
+            value.encode("utf-8", invalid: :replace, undef: :replace, replace: "_")
           end
 
           def html_mail?
@@ -121,7 +125,7 @@ module ExceptionNotifier
           def compose_email
             set_data_variables
             subject = compose_subject
-            name = @env.nil? ? 'background_exception_notification' : 'exception_notification'
+            name = @env.nil? ? "background_exception_notification" : "exception_notification"
             exception_recipients = maybe_call(@options[:exception_recipients])
 
             headers = {
@@ -145,7 +149,7 @@ module ExceptionNotifier
           def load_custom_views
             return unless defined?(Rails) && Rails.respond_to?(:root)
 
-            prepend_view_path Rails.root.nil? ? 'app/views' : "#{Rails.root}/app/views"
+            prepend_view_path Rails.root.nil? ? "app/views" : "#{Rails.root}/app/views"
           end
 
           def maybe_call(maybe_proc)
@@ -184,7 +188,7 @@ module ExceptionNotifier
     end
 
     def self.normalize_digits(string)
-      string.gsub(/[0-9]+/, 'N')
+      string.gsub(/[0-9]+/, "N")
     end
 
     private

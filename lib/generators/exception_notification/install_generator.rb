@@ -3,18 +3,18 @@
 module ExceptionNotification
   module Generators
     class InstallGenerator < Rails::Generators::Base
-      desc 'Creates a ExceptionNotification initializer.'
+      desc "Creates a ExceptionNotification initializer."
 
-      source_root File.expand_path('templates', __dir__)
+      source_root File.expand_path("templates", __dir__)
       class_option :resque,
-                   type: :boolean,
-                   desc: 'Add support for sending notifications when errors occur in Resque jobs.'
+        type: :boolean,
+        desc: "Add support for sending notifications when errors occur in Resque jobs."
       class_option :sidekiq,
-                   type: :boolean,
-                   desc: 'Add support for sending notifications when errors occur in Sidekiq jobs.'
+        type: :boolean,
+        desc: "Add support for sending notifications when errors occur in Sidekiq jobs."
 
       def copy_initializer
-        template 'exception_notification.rb.erb', 'config/initializers/exception_notification.rb'
+        template "exception_notification.rb.erb", "config/initializers/exception_notification.rb"
       end
     end
   end

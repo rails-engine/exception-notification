@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require 'active_support/core_ext/time'
-require 'action_dispatch'
+require "active_support/core_ext/time"
+require "action_dispatch"
 
 module ExceptionNotifier
   class Formatter
@@ -27,7 +27,7 @@ module ExceptionNotifier
       if env
         "⚠️ Error occurred in #{env} ⚠️"
       else
-        '⚠️ Error occurred ⚠️'
+        "⚠️ Error occurred ⚠️"
       end
     end
 
@@ -38,10 +38,10 @@ module ExceptionNotifier
     #
     def subtitle
       errors_text = if errors_count > 1
-                      errors_count
-                    else
-                      exception.class.to_s =~ /^[aeiou]/i ? 'An' : 'A'
-                    end
+        errors_count
+      else
+        /^[aeiou]/i.match?(exception.class.to_s) ? "An" : "A"
+      end
 
       in_action = " in *#{controller_and_action}*" if controller
 
@@ -64,13 +64,13 @@ module ExceptionNotifier
       return unless request
 
       [
-        '```',
+        "```",
         "* url : #{request.original_url}",
         "* http_method : #{request.method}",
         "* ip_address : #{request.remote_ip}",
         "* parameters : #{request.filtered_parameters}",
         "* timestamp : #{Time.current}",
-        '```'
+        "```"
       ].join("\n")
     end
 
@@ -90,9 +90,9 @@ module ExceptionNotifier
 
       text = []
 
-      text << '```'
+      text << "```"
       backtrace.first(3).each { |line| text << "* #{line}" }
-      text << '```'
+      text << "```"
 
       text.join("\n")
     end
@@ -111,7 +111,6 @@ module ExceptionNotifier
     def rails_app_name
       return unless defined?(::Rails) && ::Rails.respond_to?(:application)
 
-      
       if Rails::VERSION::MAJOR >= 6
         Rails.application.class.module_parent_name.underscore
       else
@@ -120,7 +119,7 @@ module ExceptionNotifier
     end
 
     def controller
-      env['action_controller.instance'] if env
+      env["action_controller.instance"] if env
     end
   end
 end

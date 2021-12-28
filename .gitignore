@@ -2,3 +2,4 @@
 *.gemfile.lock
 /Gemfile.lock
 /.idea/
+pkg/

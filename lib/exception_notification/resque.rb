@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'resque/failure/base'
+require "resque/failure/base"
 
 module ExceptionNotification
   class Resque < Resque::Failure::Base
@@ -18,7 +18,7 @@ module ExceptionNotification
         worker: worker.to_s
       }
 
-      ExceptionNotifier.notify_exception(exception, data: { resque: data })
+      ExceptionNotifier.notify_exception(exception, data: {resque: data})
     end
   end
 end

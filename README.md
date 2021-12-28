@@ -1,19 +1,14 @@
 # Exception Notification
 
-[![Gem Version](https://badge.fury.io/rb/exception_notification.svg)](https://badge.fury.io/rb/exception_notification)
+[![Gem Version](https://badge.fury.io/rb/exception-notification.svg)](https://badge.fury.io/rb/exception-notification)
 [![Build Status](https://travis-ci.org/smartinez87/exception_notification.svg?branch=master)](https://travis-ci.org/smartinez87/exception_notification)
-[![Coverage Status](https://coveralls.io/repos/github/smartinez87/exception_notification/badge.svg?branch=master)](https://coveralls.io/github/smartinez87/exception_notification?branch=master)
 [![Maintainability](https://api.codeclimate.com/v1/badges/78a9a12be00a6d305136/maintainability)](https://codeclimate.com/github/smartinez87/exception_notification/maintainability)
 
-**THIS README IS FOR THE MASTER BRANCH AND REFLECTS THE WORK CURRENTLY EXISTING ON THE MASTER BRANCH. IF YOU ARE WISHING TO USE A NON-MASTER BRANCH OF EXCEPTION NOTIFICATION, PLEASE CONSULT THAT BRANCH'S README AND NOT THIS ONE.**
+This is a lite version of the Exception Notification gem provides a way for sending notifications when errors occur in a Rack/Rails application.
 
----
-
-The Exception Notification gem provides a set of [notifiers](#notifiers) for sending notifications when errors occur in a Rack/Rails application. The built-in notifiers can deliver notifications by [email](docs/notifiers/email.md), [Campfire](docs/notifiers/campfire.md), [HipChat](docs/notifiers/hipchat.md), [Slack](docs/notifiers/slack.md), [Mattermost](docs/notifiers/mattermost.md), [Teams](docs/notifiers/teams.md), [IRC](docs/notifiers/irc.md), [Amazon SNS](docs/notifiers/sns.md), [Google Chat](docs/notifiers/google_chat.md), [Datadog](docs/notifiers/datadog.md) or via custom [WebHooks](docs/notifiers/webhook.md).
+It removed default notifiers just give a base for implememntation of your own notifiers.
 
 There's a great [Railscast about Exception Notification](http://railscasts.com/episodes/104-exception-notifications-revised) you can see that may help you getting started.
-
-[Follow us on Twitter](https://twitter.com/exception_notif) to get updates and notices about new releases.
 
 ## Requirements
 
@@ -84,16 +79,7 @@ Options -> sections" below.
 
 ExceptionNotification relies on notifiers to deliver notifications when errors occur in your applications. By default, 8 notifiers are available:
 
-- [Campfire notifier](docs/notifiers/campfire.md)
-- [Datadog notifier](docs/notifiers/datadog.md)
 - [Email notifier](docs/notifiers/email.md)
-- [HipChat notifier](docs/notifiers/hipchat.md)
-- [IRC notifier](docs/notifiers/irc.md)
-- [Slack notifier](docs/notifiers/slack.md)
-- [Mattermost notifier](docs/notifiers/mattermost.md)
-- [Teams notifier](docs/notifiers/teams.md)
-- [Amazon SNS](docs/notifiers/sns.md)
-- [Google Chat notifier](docs/notifiers/google_chat.md)
 - [WebHook notifier](docs/notifiers/webhook.md)
 
 But, you also can easily implement your own [custom notifier](docs/notifiers/custom.md).

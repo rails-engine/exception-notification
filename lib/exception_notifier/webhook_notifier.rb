@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require 'action_dispatch'
-require 'active_support/core_ext/time'
+require "action_dispatch"
+require "active_support/core_ext/time"
 
 module ExceptionNotifier
   class WebhookNotifier < BaseNotifier
@@ -26,7 +26,7 @@ module ExceptionNotifier
         message: exception.message.inspect,
         backtrace: exception.backtrace
       }
-      options[:body][:data] = (env && env['exception_notifier.exception_data'] || {}).merge(options[:data] || {})
+      options[:body][:data] = (env && env["exception_notifier.exception_data"] || {}).merge(options[:data] || {})
 
       unless env.nil?
         request = ActionDispatch::Request.new(env)
