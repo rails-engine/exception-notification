@@ -1,8 +1,7 @@
 # Exception Notification
 
 [![Gem Version](https://badge.fury.io/rb/exception-notification.svg)](https://badge.fury.io/rb/exception-notification)
-[![Build Status](https://travis-ci.org/smartinez87/exception_notification.svg?branch=master)](https://travis-ci.org/smartinez87/exception_notification)
-[![Maintainability](https://api.codeclimate.com/v1/badges/78a9a12be00a6d305136/maintainability)](https://codeclimate.com/github/smartinez87/exception_notification/maintainability)
+[![Build Status](https://github.com/rails-engine/exception-notification/actions/workflows/build.yml/badge.svg)](https://github.com/rails-engine/exception-notification/actions/workflows/build.yml)
 
 This is a lite version of the Exception Notification gem provides a way for sending notifications when errors occur in a Rack/Rails application.
 
